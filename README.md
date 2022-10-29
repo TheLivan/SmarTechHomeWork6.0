@@ -1,0 +1,1 @@
+# SmarTechHomeWork6.0
