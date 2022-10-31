@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Smartech.Data;
 using Smartech.Pages;
 using System.Net;
 
@@ -16,8 +17,9 @@ namespace Smartech.Controllers
 
         public IActionResult Welcome(string name, string lang)
         {
-            Console.WriteLine(lang);
-            return View(new WelcomeModel(name));
+            using var db = new SampleContext();
+            var langMessage = db.Languages.OrderBy(b => b.Lang.Equals(lang)).Last();
+            return View(new WelcomeModel(name, langMessage.Message));
         }
 
         [HttpPost]
